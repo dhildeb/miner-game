@@ -4,7 +4,7 @@ let clickUpgrades = {
   swords: {
     price: 10,
     quantity: 0,
-    multiplier: 2
+    multiplier: 1
   },
   longSwords: {
     price: 1000,
@@ -42,9 +42,37 @@ function looting() {
   displayLoot()
 }
 
+// let template = ''
+
+// for (let key in toppings){
+//   let topping = toppings[key]
+//   template += `
+//     <div class="col-4 text-center">
+//       <img class="img-fluid"
+//         src="${topping.imgUrl}"
+//         alt="">
+//       <button class="btn btn-primary btn-block" onclick="addItem('${topping.name}')"> ${topping.name}</button>
+//       <p>$${topping.price.toFixed(2)}</p>
+//     </div>`
+
 function lootModifier() {
-  let modifier = clickUpgrades.swords.multiplier * (clickUpgrades.swords.quantity)
+  let modifier = 0
+  for (let key in clickUpgrades) {
+    let upgrade = clickUpgrades
+  }
   return modifier
+}
+
+function collectAutoUpgrades() {
+  let autoLoot = 0
+  for (i = 0; i < autoUpgrade.length; i++) {
+    autoLoot += autoUpgrade[i].multiplier * autoUpgrade[i].quantity
+  }
+  startInterval()
+}
+
+function startInterval() {
+  collectionInterval = setInterval(collectAutoUpgrades, 3000);
 }
 
 function displayLoot() {
