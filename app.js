@@ -1,17 +1,18 @@
 let loot = 0
+let autoLoot = 0
 
 let clickUpgrades = {
-  swords: {
+  daggers: {
     price: 10,
     quantity: 0,
     multiplier: 1
   },
-  longSwords: {
+  greatswords: {
     price: 1000,
     quantity: 0,
     multiplier: 20
   },
-  greatSwords: {
+  fireswords: {
     price: 10000,
     quantity: 0,
     multiplier: 200
@@ -20,7 +21,7 @@ let clickUpgrades = {
 
 let autoUpgrade = {
   temp: {
-    price: 500,
+    price: 50,
     quantity: 0,
     multiplier: 20
   },
@@ -39,21 +40,8 @@ let autoUpgrade = {
 function looting() {
   loot++
   loot += lootModifier()
-  displayLoot()
+  updateDisplay()
 }
-
-// let template = ''
-
-// for (let key in toppings){
-//   let topping = toppings[key]
-//   template += `
-//     <div class="col-4 text-center">
-//       <img class="img-fluid"
-//         src="${topping.imgUrl}"
-//         alt="">
-//       <button class="btn btn-primary btn-block" onclick="addItem('${topping.name}')"> ${topping.name}</button>
-//       <p>$${topping.price.toFixed(2)}</p>
-//     </div>`
 
 function lootModifier() {
   let modifier = 0
@@ -64,33 +52,71 @@ function lootModifier() {
 }
 
 function collectAutoUpgrades() {
-  let autoLoot = 0
+  autoLoot = 0
   for (let key in autoUpgrade) {
     autoLoot += autoUpgrade[key].multiplier * autoUpgrade[key].quantity
+    console.log(autoLoot)
   }
-  startInterval()
+  loot += autoLoot
+  updateDisplay()
 }
 
 function startInterval() {
-  collectionInterval = setInterval(collectAutoUpgrades, 3000);
+  collectionInterval = setInterval(collectAutoUpgrades, 1000);
 }
 
-function displayLoot() {
-  document.getElementById("display-loot").innerHTML = `${loot}`
-  document.getElementById("display-swords").innerHTML = `${clickUpgrades.swords.quantity}`
-  document.getElementById("swords-price").innerHTML = `${clickUpgrades.swords.price * (clickUpgrades.swords.quantity + 1)}`
-  document.getElementById("display-loot-per-click").innerHTML = `${lootModifier() + 1}`
-}
+function buyItem(item) {
 
+  for (let key in clickUpgrades) {
+    if (key == item) {
 
-function buySword() {
-  if (loot >= clickUpgrades.swords.price * (clickUpgrades.swords.quantity + 1)) {
-    loot -= clickUpgrades.swords.price * clickUpgrades.swords.quantity
-    clickUpgrades.swords.quantity++
-    console.log("purchased")
-  } else {
-    console.log("insufficent resources")
+      if (loot >= clickUpgrades[key].price * (clickUpgrades[key].quantity + 1)) {
+        loot -= clickUpgrades[key].price * (clickUpgrades[key].quantity + 1)
+        clickUpgrades[key].quantity++
+      }
+      updateDisplay()
+    }
   }
-  displayLoot()
 }
-displayLoot()
+
+function buyAutoItem(item) {
+
+  for (key in autoUpgrade) {
+    if (key == item) {
+
+      if (loot >= autoUpgrade[key].price * (autoUpgrade[key].quantity + 1)) {
+        loot -= autoUpgrade[key].price * (autoUpgrade[key].quantity + 1)
+        autoUpgrade[key].quantity++
+        console.log("purchased")
+      } else {
+        console.log("insufficent resources")
+      }
+      updateDisplay()
+    }
+  }
+}
+
+function updateDisplay() {
+  document.getElementById("display-loot").innerText = `${loot.toString()}`
+
+  document.getElementById("display-dagger").innerText = `${clickUpgrades.daggers.quantity.toString()}`
+
+  document.getElementById("dagger-price").innerHTML = `${clickUpgrades.daggers.price * (clickUpgrades.daggers.quantity + 1)}`
+  document.getElementById("display-greatsword").innerText = `${clickUpgrades.greatswords.quantity.toString()}`
+
+  document.getElementById("greatsword-price").innerHTML = `${clickUpgrades.greatswords.price * (clickUpgrades.greatswords.quantity + 1)}`
+  document.getElementById("display-firesword").innerText = `${clickUpgrades.fireswords.quantity.toString()}`
+
+  document.getElementById("firesword-price").innerHTML = `${clickUpgrades.fireswords.price * (clickUpgrades.fireswords.quantity + 1)}`
+
+  document.getElementById("temp-price").innerHTML = `${autoUpgrade.temp.price * (autoUpgrade.temp.quantity + 1)}`
+
+  document.getElementById("display-loot-per-click").innerHTML = `${lootModifier() + 1}`
+
+  document.getElementById("display-loot-per-sec").innerText = `${autoLoot.toString()}`
+
+
+}
+
+updateDisplay()
+startInterval()

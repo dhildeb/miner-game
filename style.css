@@ -1,3 +1,10 @@
+body{
+background-image: url(https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/e3ddfdba-82b0-4bf0-bb87-d8d5cfb050d8/dcoikvj-eea2f1f4-909d-491e-a505-39ab0cfee5b3.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2UzZGRmZGJhLTgyYjAtNGJmMC1iYjg3LWQ4ZDVjZmIwNTBkOFwvZGNvaWt2ai1lZWEyZjFmNC05MDlkLTQ5MWUtYTUwNS0zOWFiMGNmZWU1YjMucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.lTR19XIHqUkEiQhUL75azGGJaJbWlbLutin7fUEzrpE);
+background-repeat: no-repeat;
+background-size: cover;
+color: gold;
+}
+
 img{
   max-height: 200px;
 }

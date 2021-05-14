@@ -24,13 +24,16 @@
 
       <div class="row">
         <div class="col-4">
-          <h1>Loot: 'icon' <span id="display-loot">0</span>!</h1>
+          <h1>Loot: <span id="display-loot">0</span>!</h1>
         </div>
         <div class="col-4">
-          <h1>Swords: 'icon' <span id="display-swords">0</span>!</h1>
+          <h1>Daggers: <span id="display-dagger">0</span>!</h1>
+          <h1>Greatswords: <span id="display-greatsword">0</span>!</h1>
+          <h1>fireswords: <span id="display-firesword">0</span>!</h1>
         </div>
         <div class="col-4">
-          <h1>Loot Per Click: 'icon' <span id="display-loot-per-click">1</span>!</h1>
+          <h1>Loot Per Click: <span id="display-loot-per-click">1</span>!</h1>
+          <h1>Loot Per Sec: <span id="display-loot-per-sec">0</span>!</h1>
         </div>
 
       </div>
@@ -50,9 +53,18 @@
     <div class="container">
       <div class="row">
         <div class="col-4">
-          <h5>Price: <span id="swords-price"></span></h5>
-          <button class="btn btn-secondary" onclick="buySword()">Buy Sword</button>
+          <h5>Price: <span id="dagger-price"></span></h5>
+          <button class="btn btn-secondary" onclick="buyItem('daggers')">Buy dagger</button>
+          <h5>Price: <span id="greatsword-price"></span></h5>
+          <button class="btn btn-secondary" onclick="buyItem('greatswords')">Buy Greatsword</button>
+          <h5>Price: <span id="firesword-price"></span></h5>
+          <button class="btn btn-secondary" onclick="buyItem('fireswords')">Buy Firesword</button>
         </div>
+        <div class="col-4">
+          <h5>Price: <span id="temp-price"></span></h5>
+          <button class="btn btn-secondary" onclick="buyAutoItem('temp')">Buy temp</button>
+        </div>
+
       </div>
     </div>
   </footer>
