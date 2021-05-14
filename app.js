@@ -58,15 +58,15 @@ function looting() {
 function lootModifier() {
   let modifier = 0
   for (let key in clickUpgrades) {
-    let upgrade = clickUpgrades
+    modifier += clickUpgrades[key].multiplier * clickUpgrades[key].quantity
   }
   return modifier
 }
 
 function collectAutoUpgrades() {
   let autoLoot = 0
-  for (i = 0; i < autoUpgrade.length; i++) {
-    autoLoot += autoUpgrade[i].multiplier * autoUpgrade[i].quantity
+  for (let key in autoUpgrade) {
+    autoLoot += autoUpgrade[key].multiplier * autoUpgrade[key].quantity
   }
   startInterval()
 }
