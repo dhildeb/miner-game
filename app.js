@@ -62,7 +62,7 @@ function collectAutoUpgrades() {
 }
 
 function startInterval() {
-  collectionInterval = setInterval(collectAutoUpgrades, 1000);
+  collectionInterval = setInterval(collectAutoUpgrades, 3000);
 }
 
 function buyItem(item) {
@@ -74,9 +74,9 @@ function buyItem(item) {
         loot -= clickUpgrades[key].price * (clickUpgrades[key].quantity + 1)
         clickUpgrades[key].quantity++
       }
-      updateDisplay()
     }
   }
+  updateDisplay()
 }
 
 function buyAutoItem(item) {
@@ -91,9 +91,9 @@ function buyAutoItem(item) {
       } else {
         console.log("insufficent resources")
       }
-      updateDisplay()
     }
   }
+  updateDisplay()
 }
 
 function updateDisplay() {
@@ -113,7 +113,7 @@ function updateDisplay() {
 
   document.getElementById("display-loot-per-click").innerHTML = `${lootModifier() + 1}`
 
-  document.getElementById("display-loot-per-sec").innerText = `${autoLoot.toString()}`
+  document.getElementById("display-loot-per-sec").innerHTML = `${Math.floor(autoLoot / 3)}`
 
 
 }
