@@ -1,18 +1,22 @@
-let loot = 0
+let gold = 0
 let autoLoot = 0
+openchest = "https://static.wikia.nocookie.net/seaofthieves5135/images/d/d5/Seafarer%27s_Chest.png/revision/latest?cb=20180329191252"
+gems = 5
+magicitems = 10
+relics = 20
 
 let clickUpgrades = {
-  daggers: {
+  lockpicks: {
     price: 10,
     quantity: 0,
     multiplier: 1
   },
-  greatswords: {
+  sledgehammers: {
     price: 1000,
     quantity: 0,
     multiplier: 20
   },
-  fireswords: {
+  magicwands: {
     price: 10000,
     quantity: 0,
     multiplier: 200
@@ -20,17 +24,17 @@ let clickUpgrades = {
 }
 
 let autoUpgrade = {
-  temp: {
+  pets: {
     price: 50,
     quantity: 0,
     multiplier: 20
   },
-  adventurer: {
+  apprentices: {
     price: 5000,
     quantity: 0,
     multiplier: 200
   },
-  thief: {
+  mercaneries: {
     price: 50000,
     quantity: 0,
     multiplier: 2000
