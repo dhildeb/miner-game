@@ -1,22 +1,20 @@
-let gold = 0
-let autoLoot = 0
-openchest = "https://static.wikia.nocookie.net/seaofthieves5135/images/d/d5/Seafarer%27s_Chest.png/revision/latest?cb=20180329191252"
-gems = 5
-magicitems = 10
-relics = 20
+let minutes = 52500000
+let money = 0
+let disease = 1
+
 
 let clickUpgrades = {
-  lockpicks: {
-    price: 10,
+  vapes: {
+    price: 100,
     quantity: 0,
     multiplier: 1
   },
-  sledgehammers: {
+  cigarettes: {
     price: 1000,
     quantity: 0,
     multiplier: 20
   },
-  magicwands: {
+  cigars: {
     price: 10000,
     quantity: 0,
     multiplier: 200
@@ -24,30 +22,37 @@ let clickUpgrades = {
 }
 
 let autoUpgrade = {
-  pets: {
-    price: 50,
+  diabetes: {
+    price: 500,
     quantity: 0,
     multiplier: 20
   },
-  apprentices: {
+  heartDisease: {
     price: 5000,
     quantity: 0,
     multiplier: 200
   },
-  mercaneries: {
+  copd: {
     price: 50000,
     quantity: 0,
     multiplier: 2000
   },
+  lungCancer: {
+    price: 500000,
+    quantity: 0,
+    multiplier: 20000
+  }
 }
 
-function looting() {
-  loot++
-  loot += lootModifier()
+function smoke() {
+  money++
+  minutes--
+  money += minutesModifier()
+  minutes -= minutesModifier()
   updateDisplay()
 }
 
-function lootModifier() {
+function minutesModifier() {
   let modifier = 0
   for (let key in clickUpgrades) {
     modifier += clickUpgrades[key].multiplier * clickUpgrades[key].quantity
@@ -56,12 +61,12 @@ function lootModifier() {
 }
 
 function collectAutoUpgrades() {
-  autoLoot = 0
+  disease = 1
   for (let key in autoUpgrade) {
-    autoLoot += autoUpgrade[key].multiplier * autoUpgrade[key].quantity
-    console.log(autoLoot)
+    disease += autoUpgrade[key].multiplier * autoUpgrade[key].quantity
+    console.log(disease)
   }
-  loot += autoLoot
+  minutes -= disease
   updateDisplay()
 }
 
@@ -74,8 +79,8 @@ function buyItem(item) {
   for (let key in clickUpgrades) {
     if (key == item) {
 
-      if (loot >= clickUpgrades[key].price * (clickUpgrades[key].quantity + 1)) {
-        loot -= clickUpgrades[key].price * (clickUpgrades[key].quantity + 1)
+      if (minutes >= clickUpgrades[key].price * (clickUpgrades[key].quantity + 1)) {
+        minutes -= clickUpgrades[key].price * (clickUpgrades[key].quantity + 1)
         clickUpgrades[key].quantity++
       }
     }
@@ -88,8 +93,8 @@ function buyAutoItem(item) {
   for (key in autoUpgrade) {
     if (key == item) {
 
-      if (loot >= autoUpgrade[key].price * (autoUpgrade[key].quantity + 1)) {
-        loot -= autoUpgrade[key].price * (autoUpgrade[key].quantity + 1)
+      if (minutes >= autoUpgrade[key].price * (autoUpgrade[key].quantity + 1)) {
+        minutes -= autoUpgrade[key].price * (autoUpgrade[key].quantity + 1)
         autoUpgrade[key].quantity++
         console.log("purchased")
       } else {
@@ -101,23 +106,25 @@ function buyAutoItem(item) {
 }
 
 function updateDisplay() {
-  document.getElementById("display-loot").innerText = `${loot.toString()}`
+  document.getElementById("display-minutes").innerText = `${minutes.toString()}`
 
-  document.getElementById("display-dagger").innerText = `${clickUpgrades.daggers.quantity.toString()}`
+  document.getElementById("display-money").innerText = `${money.toString()}`
 
-  document.getElementById("dagger-price").innerHTML = `${clickUpgrades.daggers.price * (clickUpgrades.daggers.quantity + 1)}`
-  document.getElementById("display-greatsword").innerText = `${clickUpgrades.greatswords.quantity.toString()}`
+  document.getElementById("display-vapes").innerText = `${clickUpgrades.vapes.quantity.toString()}`
 
-  document.getElementById("greatsword-price").innerHTML = `${clickUpgrades.greatswords.price * (clickUpgrades.greatswords.quantity + 1)}`
-  document.getElementById("display-firesword").innerText = `${clickUpgrades.fireswords.quantity.toString()}`
+  document.getElementById("vape-price").innerHTML = `${clickUpgrades.vapes.price * (clickUpgrades.vapes.quantity + 1)}`
+  document.getElementById("display-cigarettes").innerText = `${clickUpgrades.cigarettes.quantity.toString()}`
 
-  document.getElementById("firesword-price").innerHTML = `${clickUpgrades.fireswords.price * (clickUpgrades.fireswords.quantity + 1)}`
+  document.getElementById("cigarette-price").innerHTML = `${clickUpgrades.cigarettes.price * (clickUpgrades.cigarettes.quantity + 1)}`
+  document.getElementById("display-cigars").innerText = `${clickUpgrades.cigars.quantity.toString()}`
 
-  document.getElementById("temp-price").innerHTML = `${autoUpgrade.temp.price * (autoUpgrade.temp.quantity + 1)}`
+  document.getElementById("cigar-price").innerHTML = `${clickUpgrades.cigars.price * (clickUpgrades.cigars.quantity + 1)}`
 
-  document.getElementById("display-loot-per-click").innerHTML = `${lootModifier() + 1}`
+  document.getElementById("diabetes-price").innerHTML = `${autoUpgrade.diabetes.price * (autoUpgrade.diabetes.quantity + 1)}`
 
-  document.getElementById("display-loot-per-sec").innerHTML = `${Math.floor(autoLoot / 3)}`
+  document.getElementById("display-minutes-per-click").innerHTML = `${minutesModifier() + 1}`
+
+  document.getElementById("display-minutes-per-sec").innerHTML = `${Math.floor(disease / 3)}`
 
 
 }

@@ -11,7 +11,13 @@
 
   <link rel="stylesheet" href="style.css">
 
-  <title>Dungeon Miner</title>
+  <!-- <style>
+    * {
+      outline: 1px solid red;
+    }
+  </style> -->
+
+  <title>Death Miner</title>
 </head>
 
 <body>
@@ -24,23 +30,25 @@
 
       <div class="row">
         <div class="col-4">
-          <h1>Loot: <span id="display-loot">0</span></h1>
+          <h4>minutes to live: <span id="display-minutes">0</span></h4>
         </div>
-        <div class="col-4">
-          <h1>Daggers: <span id="display-dagger">0</span></h1>
-          <h1>Greatswords: <span id="display-greatsword">0</span></h1>
-          <h1>fireswords: <span id="display-firesword">0</span></h1>
-        </div>
-        <div class="col-4">
-          <h1>Loot Per Click: <span id="display-loot-per-click">1</span></h1>
-          <h1>Loot Per Sec: <span id="display-loot-per-sec">0</span></h1>
-        </div>
-
+        <h4>money: $<span id="display-money">0</span></h4>
       </div>
+
+      <div class="col-4">
+        <h4>vapes: <span id="display-vapes">0</span></h4>
+        <h4>cigarettes: <span id="display-cigarettes">0</span></h4>
+        <h4>cigars: <span id="display-cigars">0</span></h4>
+      </div>
+      <div class="col-4">
+        <h4>minutes Per Click: <span id="display-minutes-per-click">1</span></h4>
+        <h4>minutes Per Sec: <span id="display-minutes-per-sec">0</span></h4>
+      </div>
+
       <div class="row justify-content-center align-content-center">
-        <div class="col-4 d-flex justify-content-center">
-          <img onclick="looting()"
-            src="https://www.freepnglogos.com/uploads/treasure-chest-png/treasure-chest-treasure-chests-sea-thieves-wiki-11.png"
+        <div class="col-12 d-flex justify-content-center" style="height: 310px;">
+          <img onclick="smoke()"
+            src="https://pnglux.com/wp-content/uploads/2021/03/1615922229_Lighter-zippo-PNG-Transparent-Background-990x851.png"
             alt="">
         </div>
       </div>
@@ -51,16 +59,16 @@
     <div class="container">
       <div class="row">
         <div class="col-4">
-          <h5>Price: <span id="dagger-price"></span></h5>
-          <button class="btn btn-secondary" onclick="buyItem('daggers')">Buy dagger</button>
-          <h5>Price: <span id="greatsword-price"></span></h5>
-          <button class="btn btn-secondary" onclick="buyItem('greatswords')">Buy Greatsword</button>
-          <h5>Price: <span id="firesword-price"></span></h5>
-          <button class="btn btn-secondary" onclick="buyItem('fireswords')">Buy Firesword</button>
+          <h5>Price: <span id="vape-price"></span></h5>
+          <button class="btn btn-secondary" onclick="buyItem('vapes')">Buy vape</button>
+          <h5>Price: <span id="cigarette-price"></span></h5>
+          <button class="btn btn-secondary" onclick="buyItem('cigarettes')">Buy cigarette</button>
+          <h5>Price: <span id="cigar-price"></span></h5>
+          <button class="btn btn-secondary" onclick="buyItem('cigars')">Buy cigar</button>
         </div>
         <div class="col-4">
-          <h5>Price: <span id="temp-price"></span></h5>
-          <button class="btn btn-secondary" onclick="buyAutoItem('temp')">Buy temp</button>
+          <h5>Price: <span id="diabetes-price"></span></h5>
+          <button class="btn btn-secondary" onclick="buyAutoItem('diabetes')">Get diabetes</button>
         </div>
 
       </div>
