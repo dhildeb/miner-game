@@ -18,6 +18,11 @@ let clickUpgrades = {
     price: 10000,
     quantity: 0,
     multiplier: 200
+  },
+  chew: {
+    price: 100000,
+    quantity: 0,
+    multiplier: 2000
   }
 }
 
@@ -64,14 +69,14 @@ function collectAutoUpgrades() {
   disease = 1
   for (let key in autoUpgrade) {
     disease += autoUpgrade[key].multiplier * autoUpgrade[key].quantity
-    console.log(disease)
   }
+  money += disease - 1
   minutes -= disease
   updateDisplay()
 }
 
 function startInterval() {
-  collectionInterval = setInterval(collectAutoUpgrades, 3000);
+  collectionInterval = setInterval(collectAutoUpgrades, 1000);
 }
 
 function buyItem(item) {
@@ -79,9 +84,11 @@ function buyItem(item) {
   for (let key in clickUpgrades) {
     if (key == item) {
 
-      if (minutes >= clickUpgrades[key].price * (clickUpgrades[key].quantity + 1)) {
-        minutes -= clickUpgrades[key].price * (clickUpgrades[key].quantity + 1)
+      if (money >= clickUpgrades[key].price * (clickUpgrades[key].quantity + 1)) {
+        money -= clickUpgrades[key].price * (clickUpgrades[key].quantity + 1)
         clickUpgrades[key].quantity++
+      } else {
+        window.alert("insufficent resources")
       }
     }
   }
@@ -93,12 +100,12 @@ function buyAutoItem(item) {
   for (key in autoUpgrade) {
     if (key == item) {
 
-      if (minutes >= autoUpgrade[key].price * (autoUpgrade[key].quantity + 1)) {
-        minutes -= autoUpgrade[key].price * (autoUpgrade[key].quantity + 1)
+      if (money >= autoUpgrade[key].price * (autoUpgrade[key].quantity + 1)) {
+        money -= autoUpgrade[key].price * (autoUpgrade[key].quantity + 1)
         autoUpgrade[key].quantity++
-        console.log("purchased")
+        console.log(autoUpgrade[key])
       } else {
-        console.log("insufficent resources")
+        window.alert("insufficent resources")
       }
     }
   }
@@ -119,14 +126,25 @@ function updateDisplay() {
   document.getElementById("display-cigars").innerText = `${clickUpgrades.cigars.quantity.toString()}`
 
   document.getElementById("cigar-price").innerHTML = `${clickUpgrades.cigars.price * (clickUpgrades.cigars.quantity + 1)}`
+  document.getElementById("display-chew").innerText = `${clickUpgrades.chew.quantity.toString()}`
+
+  document.getElementById("chew-price").innerHTML = `${clickUpgrades.chew.price * (clickUpgrades.chew.quantity + 1)}`
 
   document.getElementById("diabetes-price").innerHTML = `${autoUpgrade.diabetes.price * (autoUpgrade.diabetes.quantity + 1)}`
+  document.getElementById("display-diabetes").innerHTML = `${autoUpgrade.diabetes.quantity}`
+
+  document.getElementById("heart-disease-price").innerHTML = `${autoUpgrade.heartDisease.price * (autoUpgrade.heartDisease.quantity + 1)}`
+  document.getElementById("display-heart-disease").innerText = `${autoUpgrade.heartDisease.quantity.toString()}`
+
+  document.getElementById("copd-price").innerHTML = `${autoUpgrade.copd.price * (autoUpgrade.copd.quantity + 1)}`
+  document.getElementById("display-copd").innerText = `${autoUpgrade.copd.quantity.toString()}`
+
+  document.getElementById("lung-cancer-price").innerHTML = `${autoUpgrade.lungCancer.price * (autoUpgrade.lungCancer.quantity + 1)}`
+  document.getElementById("display-lung-cancer").innerText = `${autoUpgrade.lungCancer.quantity.toString()}`
 
   document.getElementById("display-minutes-per-click").innerHTML = `${minutesModifier() + 1}`
 
-  document.getElementById("display-minutes-per-sec").innerHTML = `${Math.floor(disease / 3)}`
-
-
+  document.getElementById("display-minutes-per-sec").innerText = `${disease.toString()}`
 }
 
 updateDisplay()

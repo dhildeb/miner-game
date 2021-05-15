@@ -29,24 +29,34 @@
     <div class="container">
 
       <div class="row">
-        <div class="col-4">
+        <div class="col-7 d-flex justify-content-center">
           <h4>minutes to live: <span id="display-minutes">0</span></h4>
         </div>
-        <h4>money: $<span id="display-money">0</span></h4>
-      </div>
+        <div class="col-5">
+          <h4>money: $<span id="display-money">0</span></h4>
+        </div>
 
-      <div class="col-4">
-        <h4>vapes: <span id="display-vapes">0</span></h4>
-        <h4>cigarettes: <span id="display-cigarettes">0</span></h4>
-        <h4>cigars: <span id="display-cigars">0</span></h4>
-      </div>
-      <div class="col-4">
-        <h4>minutes Per Click: <span id="display-minutes-per-click">1</span></h4>
-        <h4>minutes Per Sec: <span id="display-minutes-per-sec">0</span></h4>
+        <div class="col-4">
+          <h4>vapes: <span id="display-vapes">0</span></h4>
+          <h4>cigarettes: <span id="display-cigarettes">0</span></h4>
+          <h4>cigars: <span id="display-cigars">0</span></h4>
+          <h4>chew: <span id="display-chew">0</span></h4>
+        </div>
+        <div class="col-4 d-flex flex-column aling-content-center">
+          <h4>Diabetes lvl: <span id="display-diabetes">0</span></h4>
+          <h4>Heart Disease lvl: <span id="display-heart-disease">0</span></h4>
+          <h4>copd lvl: <span id="display-copd">0</span></h4>
+          <h4>Lung Disease lvl: <span id="display-lung-cancer">0</span></h4>
+
+        </div>
+        <div class="col-4 d-flex flex-column justify-content-center">
+          <h4>Dying Per Smoke: <span id="display-minutes-per-click">1</span></h4>
+          <h4>Dying Per Sec: <span id="display-minutes-per-sec">0</span></h4>
+        </div>
       </div>
 
       <div class="row justify-content-center align-content-center">
-        <div class="col-12 d-flex justify-content-center" style="height: 310px;">
+        <div class="col-12 d-flex justify-content-center" style="height: 280px;">
           <img onclick="smoke()"
             src="https://pnglux.com/wp-content/uploads/2021/03/1615922229_Lighter-zippo-PNG-Transparent-Background-990x851.png"
             alt="">
@@ -58,17 +68,43 @@
   <footer>
     <div class="container">
       <div class="row">
-        <div class="col-4">
-          <h5>Price: <span id="vape-price"></span></h5>
-          <button class="btn btn-secondary" onclick="buyItem('vapes')">Buy vape</button>
-          <h5>Price: <span id="cigarette-price"></span></h5>
-          <button class="btn btn-secondary" onclick="buyItem('cigarettes')">Buy cigarette</button>
-          <h5>Price: <span id="cigar-price"></span></h5>
-          <button class="btn btn-secondary" onclick="buyItem('cigars')">Buy cigar</button>
+
+        <div class="col-6">
+
+          <div class="row justify-content-center">
+            <div class="col-4">
+
+              <h5>Price: <span id="vape-price"></span></h5>
+              <button class="btn btn-secondary" onclick="buyItem('vapes')">Buy vape</button>
+              <h5>Price: <span id="cigarette-price"></span></h5>
+              <button class="btn btn-secondary" onclick="buyItem('cigarettes')">Buy cigarette</button>
+            </div>
+            <div class="col-4">
+
+              <h5>Price: <span id="cigar-price"></span></h5>
+              <button class="btn btn-secondary" onclick="buyItem('cigars')">Buy cigar</button>
+              <h5>Price: <span id="chew-price"></span></h5>
+              <button class="btn btn-secondary" onclick="buyItem('chew')">Buy chew</button>
+            </div>
+          </div>
         </div>
-        <div class="col-4">
-          <h5>Price: <span id="diabetes-price"></span></h5>
-          <button class="btn btn-secondary" onclick="buyAutoItem('diabetes')">Get diabetes</button>
+
+        <div class="col-6">
+
+          <div class="row justify-content-center">
+            <div class="col-4">
+              <h5>Price: <span id="diabetes-price"></span></h5>
+              <button class="btn btn-secondary" onclick="buyAutoItem('diabetes')">Get diabetes</button>
+              <h5>Price: <span id="heart-disease-price"></span></h5>
+              <button class="btn btn-secondary" onclick="buyAutoItem('heartDisease')">Get Heart Disease</button>
+            </div>
+            <div class="col-4">
+              <h5>Price: <span id="copd-price"></span></h5>
+              <button class="btn btn-secondary" onclick="buyAutoItem('copd')">Get COPD</button>
+              <h5>Price: <span id="lung-cancer-price"></span></h5>
+              <button class="btn btn-secondary" onclick="buyAutoItem('lungCancer')">Get Lung Cancer</button>
+            </div>
+          </div>
         </div>
 
       </div>
