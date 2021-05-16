@@ -85,12 +85,15 @@ function saveGame() {
   window.localStorage.setItem("click-upgrades", JSON.stringify(clickUpgrades))
   window.localStorage.setItem("auto-upgrades", JSON.stringify(autoUpgrade))
   window.localStorage.setItem("memory", JSON.stringify(memory))
-  window.localStorage.setItem("easter-egg", JSON.stringify(easterEgg))
 }
 
 function loadGame() {
   let game = JSON.parse(window.localStorage.getItem("memory"))
-  easterEgg = JSON.parse(window.localStorage.getItem("easter-egg"))
+  egg = JSON.parse(window.localStorage.getItem("easter-egg"))
+  if (egg != null) {
+    easterEgg = JSON.parse(window.localStorage.getItem("easter-egg"))
+
+  }
 
   if (!game) {
     intro()
@@ -103,6 +106,7 @@ function loadGame() {
     updateDisplay()
   }
 }
+
 
 function smoke() {
   memory.money++
@@ -230,7 +234,7 @@ function death() {
     document.getElementById("header").classList.remove("d-none")
     document.getElementById("body").style.backgroundImage = 'url(https://lh3.googleusercontent.com/proxy/XLCMkx-L_k-Ixqpf_7uXHfSTkcJrb_5k8hpGA57Z2cfnifwLVrwqquYLC3Y1yTQYIyREvu7TkSeFFVqH6DNkmLrkOzcqJh7nXbyx60nGXNpLVxXHdP3bUBOHJF1RgJeSTw5_uMFCeQ)';
     easterEgg.adventure = true
-    saveGame()
+    window.localStorage.setItem("easter-egg", JSON.stringify(easterEgg))
     localStorage.removeItem("memory")
     localStorage.removeItem("click-upgrades")
     localStorage.removeItem("auto-upgrades")
