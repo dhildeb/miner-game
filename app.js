@@ -1,6 +1,7 @@
 let minutes = 52500000
 let money = 0
 let disease = 1
+let clicks = 0
 
 
 let clickUpgrades = {
@@ -49,24 +50,50 @@ let autoUpgrade = {
   }
 }
 
+function intro() {
+  document.getElementById("main").classList.add("d-none")
+  document.getElementById("footer").classList.add("d-none")
+  document.getElementById("header").classList.add("intro")
+  setTimeout(showGameBtn, 10000)
+}
+function showGameBtn() {
+  document.getElementById("game-btn").classList.remove("d-none")
+}
+
+function hideIntro() {
+  document.getElementById("main").classList.remove("d-none")
+  document.getElementById("footer").classList.remove("d-none")
+  document.getElementById("header").classList.add("d-none")
+}
+
 function saveGame() {
   window.localStorage.setItem("click-upgrades", JSON.stringify(clickUpgrades))
   window.localStorage.setItem("auto-upgrades", JSON.stringify(autoUpgrade))
   window.localStorage.setItem("money", JSON.stringify(money))
   window.localStorage.setItem("minutes", JSON.stringify(minutes))
+  window.localStorage.setItem("clicks", JSON.stringify(clicks))
 }
 
 function loadGame() {
-  clickUpgrades = JSON.parse(window.localStorage.getItem("click-upgrades"))
-  autoUpgrade = JSON.parse(window.localStorage.getItem("auto-upgrades"))
-  money = JSON.parse(window.localStorage.getItem("money"))
-  minutes = JSON.parse(window.localStorage.getItem("minutes"))
+  let game = JSON.parse(window.localStorage.getItem("minutes"))
 
-  updateDisplay()
+  if (!game) {
+    intro()
+  } else {
+    hideIntro()
+    clickUpgrades = JSON.parse(window.localStorage.getItem("click-upgrades"))
+    autoUpgrade = JSON.parse(window.localStorage.getItem("auto-upgrades"))
+    money = JSON.parse(window.localStorage.getItem("money"))
+    minutes = JSON.parse(window.localStorage.getItem("minutes"))
+    clicks = JSON.parse(window.localStorage.getItem("clicks"))
+
+    updateDisplay()
+  }
 }
 
 function smoke() {
   money++
+  clicks++
   minutes--
   money += minutesModifier()
   minutes -= minutesModifier()
@@ -89,8 +116,10 @@ function collectAutoUpgrades() {
     disease += autoUpgrade[key].multiplier * autoUpgrade[key].quantity
   }
   money += disease - 1
+  clicks += disease - 1
   minutes -= disease
   updateDisplay()
+  death()
 }
 
 function startInterval() {
@@ -173,6 +202,22 @@ function toggleFlameVisibility() {
 function displayHighUpgrades() {
   if (clickUpgrades.cigarettes.quantity > 0 && autoUpgrade.heartDisease.quantity > 0) {
     document.getElementById("high-upgrades").removeAttribute("hidden")
+  }
+}
+
+function death() {
+  if (minutes < 1) {
+    document.getElementById("main").classList.add("d-none")
+    document.getElementById("footer").classList.add("d-none")
+    document.getElementById("header").innerHTML = `<div class="row"><div class="col-6"></div> <h1 class="col-6" >you died\n
+    you smoked ${clicks} times \n you should have lived 100 years but instead you cut your life short. Smoking kills.</h1></div>`
+    document.getElementById("header").classList.remove("d-none")
+    document.getElementById("body").style.backgroundImage = 'url(https://lh3.googleusercontent.com/proxy/ibTta_Kpg8SXzwB7DCOCWGGuWAyDHcOkSewtb55w29m1hX6TEB5771QwXXj0hTxi1xOZ5jXutv8GGhTz4tMJBxTN-LmaHwg3_Xp8WhTxkat1ByD0fNDOstaIcCNuQrTSomG2pF0dyw)';
+    localStorage.removeItem("money")
+    localStorage.removeItem("minutes")
+    localStorage.removeItem("click-upgrades")
+    localStorage.removeItem("auto-upgrades")
+    localStorage.removeItem("clicks")
   }
 }
 

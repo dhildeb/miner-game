@@ -1,6 +1,8 @@
 body{
 background-color: black;
 color: rgb(107, 6, 6);
+background-repeat: no-repeat;
+background-size: stretch;
 }
 
 .clicker{
