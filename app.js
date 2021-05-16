@@ -116,7 +116,6 @@ function collectAutoUpgrades() {
     disease += autoUpgrade[key].multiplier * autoUpgrade[key].quantity
   }
   money += disease - 1
-  clicks += disease - 1
   minutes -= disease
   updateDisplay()
   death()
