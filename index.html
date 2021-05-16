@@ -30,36 +30,41 @@
 
       <div class="row">
         <div class="col-7 d-flex justify-content-center">
-          <h4>minutes to live: <span id="display-minutes">0</span></h4>
+          <h3>minutes to live: <span id="display-minutes">0</span></h3>
         </div>
         <div class="col-5">
-          <h4>money: $<span id="display-money">0</span></h4>
+          <h3>money: $<span id="display-money">0</span></h3>
         </div>
 
         <div class="col-4">
-          <h4>vapes: <span id="display-vapes">0</span></h4>
-          <h4>cigarettes: <span id="display-cigarettes">0</span></h4>
-          <h4>cigars: <span id="display-cigars">0</span></h4>
-          <h4>chew: <span id="display-chew">0</span></h4>
+          <h6>vapes: <span id="display-vapes">0</span></h6>
+          <h6>cigarettes: <span id="display-cigarettes">0</span></h6>
+          <h6>cigars: <span id="display-cigars">0</span></h6>
+          <h6>chew: <span id="display-chew">0</span></h6>
         </div>
         <div class="col-4 d-flex flex-column aling-content-center">
-          <h4>Diabetes lvl: <span id="display-diabetes">0</span></h4>
-          <h4>Heart Disease lvl: <span id="display-heart-disease">0</span></h4>
-          <h4>copd lvl: <span id="display-copd">0</span></h4>
-          <h4>Lung Disease lvl: <span id="display-lung-cancer">0</span></h4>
+          <h6>Diabetes lvl: <span id="display-diabetes">0</span></h6>
+          <h6>Heart Disease lvl: <span id="display-heart-disease">0</span></h6>
+          <h6>copd lvl: <span id="display-copd">0</span></h6>
+          <h6>Lung Disease lvl: <span id="display-lung-cancer">0</span></h6>
 
         </div>
         <div class="col-4 d-flex flex-column justify-content-center">
-          <h4>Dying Per Smoke: <span id="display-minutes-per-click">1</span></h4>
-          <h4>Dying Per Sec: <span id="display-minutes-per-sec">0</span></h4>
+          <h6>Dying/ money Per Smoke: <span id="display-minutes-per-click">1</span></h6>
+          <h6>Dying/ money Per Sec: <span id="display-minutes-per-sec">0</span></h6>
         </div>
       </div>
 
       <div class="row justify-content-center align-content-center">
-        <div class="col-12 d-flex justify-content-center" style="height: 280px;">
-          <img onclick="smoke()"
-            src="https://pnglux.com/wp-content/uploads/2021/03/1615922229_Lighter-zippo-PNG-Transparent-Background-990x851.png"
-            alt="">
+        <div class="col-10 d-flex justify-content-center" style="height: 280px;">
+          <div class="row">
+
+            <img class="aling-self-center clicker" onclick="smoke()"
+              src="https://pnglux.com/wp-content/uploads/2021/03/1615922229_Lighter-zippo-PNG-Transparent-Background-990x851.png"
+              alt="">
+            <img id="flame" class="position-absolute m-auto invisible clicker" style="top:-200px;"
+              src="https://acegif.com/wp-content/gifs/fire-65.gif" alt="">
+          </div>
         </div>
       </div>
     </div>
@@ -72,37 +77,58 @@
         <div class="col-6">
 
           <div class="row justify-content-center">
-            <div class="col-4">
+            <div class="col-6">
 
-              <h5>Price: <span id="vape-price"></span></h5>
-              <button class="btn btn-secondary" onclick="buyItem('vapes')">Buy vape</button>
-              <h5>Price: <span id="cigarette-price"></span></h5>
-              <button class="btn btn-secondary" onclick="buyItem('cigarettes')">Buy cigarette</button>
+              <h5>Vape Price: <span id="vape-price"></span></h5>
+              <img class="btn-buy"
+                src="http://31.media.tumblr.com/da572596a736de3fe9ff8301ab1f5471/tumblr_mn1dtnlffd1sqwi8go2_r1_500.gif"
+                alt="Vape" onclick="buyItem('vapes')" data-toggle="tooltip"
+                title="vapes increase money per click by 1 &#10; and dying per click by 1">
+              <h5>Price: <span id="diabetes-price"></span></h5>
+              <button class="btn btn-secondary" onclick="buyAutoItem('diabetes')" data-toggle="tooltip"
+                title="diabetes increase money per sec by 20 &#10; and dying per sec by 20">Get diabetes</button>
+
             </div>
-            <div class="col-4">
+            <div class="col-6">
+              <h5>Cigarette Price: <span id="cigarette-price"></span></h5>
+              <img class="btn-buy" onclick="buyItem('cigarettes')" data-toggle="tooltip"
+                title="cigaretes increase money per click by 20 &#10; and dying per click by 20"
+                src="http://25.media.tumblr.com/tumblr_lk7o1ypq4g1qafsd4o1_500.gif" alt="Cigarette">
+              <h5>Price: <span id="heart-disease-price"></span></h5>
+              <button class="btn btn-secondary" onclick="buyAutoItem('heartDisease')" data-toggle="tooltip"
+                title="heart disease increase money per sec by 200 &#10; and dying per sec by 200">Get Heart
+                Disease</button>
 
-              <h5>Price: <span id="cigar-price"></span></h5>
-              <button class="btn btn-secondary" onclick="buyItem('cigars')">Buy cigar</button>
-              <h5>Price: <span id="chew-price"></span></h5>
-              <button class="btn btn-secondary" onclick="buyItem('chew')">Buy chew</button>
+
             </div>
           </div>
         </div>
 
-        <div class="col-6">
+        <div id="high-upgrades" class="col-6" hidden>
 
           <div class="row justify-content-center">
-            <div class="col-4">
-              <h5>Price: <span id="diabetes-price"></span></h5>
-              <button class="btn btn-secondary" onclick="buyAutoItem('diabetes')">Get diabetes</button>
-              <h5>Price: <span id="heart-disease-price"></span></h5>
-              <button class="btn btn-secondary" onclick="buyAutoItem('heartDisease')">Get Heart Disease</button>
-            </div>
-            <div class="col-4">
+            <div class="col-6">
+              <h5>Cigar Price: <span id="cigar-price"></span></h5>
+              <img class="btn-buy" onclick="buyItem('cigars')" data-toggle="tooltip"
+                title="cigars increase money per click by 200 &#10; and dying per click by 200"
+                src="https://media0.giphy.com/media/UvDSicHertbaVQP9jB/giphy.gif?cid=6c09b952x2qwk3teppg52h089oyhta43ftoofbvq4bmxq95l&rid=giphy.gif&ct=s"
+                alt="Cigar" style="transform: rotate(270deg);">
               <h5>Price: <span id="copd-price"></span></h5>
-              <button class="btn btn-secondary" onclick="buyAutoItem('copd')">Get COPD</button>
+              <button class="btn btn-secondary" onclick="buyAutoItem('copd')" data-toggle="tooltip"
+                title="copd increase money per sec by 2000 &#10; and dying per sec by 2000">Get COPD</button>
+
+            </div>
+            <div class="col-6">
+              <h5>Chew Price: <span id="chew-price"></span></h5>
+              <img class="btn-buy" onclick="buyItem('chew')" data-toggle="tooltip"
+                title="chew increase money per click by 2000 &#10; and dying per click by 2000"
+                src="https://purepng.com/public/uploads/large/purepng.com-tobaccotobaccocigarettescigarspipe-tobacco-1411527181342gebqn.png"
+                alt="Chew">
+
               <h5>Price: <span id="lung-cancer-price"></span></h5>
-              <button class="btn btn-secondary" onclick="buyAutoItem('lungCancer')">Get Lung Cancer</button>
+              <button class="btn btn-secondary" onclick="buyAutoItem('lungCancer')" data-toggle="tooltip"
+                title="lung cancer increase money per sec by 20000 &#10; and dying per sec by 20000">Get Lung
+                Cancer</button>
             </div>
           </div>
         </div>

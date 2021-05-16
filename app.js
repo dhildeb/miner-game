@@ -55,6 +55,7 @@ function smoke() {
   money += minutesModifier()
   minutes -= minutesModifier()
   updateDisplay()
+  toggleFlameVisibility()
 }
 
 function minutesModifier() {
@@ -93,6 +94,7 @@ function buyItem(item) {
     }
   }
   updateDisplay()
+  displayHighUpgrades()
 }
 
 function buyAutoItem(item) {
@@ -110,6 +112,7 @@ function buyAutoItem(item) {
     }
   }
   updateDisplay()
+  displayHighUpgrades()
 }
 
 function updateDisplay() {
@@ -145,6 +148,15 @@ function updateDisplay() {
   document.getElementById("display-minutes-per-click").innerHTML = `${minutesModifier() + 1}`
 
   document.getElementById("display-minutes-per-sec").innerText = `${disease.toString()}`
+}
+
+function toggleFlameVisibility() {
+  document.getElementById("flame").classList.toggle("invisible")
+}
+function displayHighUpgrades() {
+  if (clickUpgrades.cigarettes.quantity > 0 && autoUpgrade.heartDisease.quantity > 0) {
+    document.getElementById("high-upgrades").removeAttribute("hidden")
+  }
 }
 
 updateDisplay()
