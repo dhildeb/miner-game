@@ -49,6 +49,22 @@ let autoUpgrade = {
   }
 }
 
+function saveGame() {
+  window.localStorage.setItem("click-upgrades", JSON.stringify(clickUpgrades))
+  window.localStorage.setItem("auto-upgrades", JSON.stringify(autoUpgrade))
+  window.localStorage.setItem("money", JSON.stringify(money))
+  window.localStorage.setItem("minutes", JSON.stringify(minutes))
+}
+
+function loadGame() {
+  clickUpgrades = JSON.parse(window.localStorage.getItem("click-upgrades"))
+  autoUpgrade = JSON.parse(window.localStorage.getItem("auto-upgrades"))
+  money = JSON.parse(window.localStorage.getItem("money"))
+  minutes = JSON.parse(window.localStorage.getItem("minutes"))
+
+  updateDisplay()
+}
+
 function smoke() {
   money++
   minutes--
@@ -56,6 +72,7 @@ function smoke() {
   minutes -= minutesModifier()
   updateDisplay()
   toggleFlameVisibility()
+  saveGame()
 }
 
 function minutesModifier() {
@@ -161,3 +178,4 @@ function displayHighUpgrades() {
 
 updateDisplay()
 startInterval()
+loadGame()
