@@ -1,7 +1,15 @@
-let minutes = 52500000
-let money = 0
+let memory = {
+
+  minutes: 52500000,
+  minutesLived: 0,
+  money: 0,
+  clicks: 0
+}
+let easterEgg = {
+  adventure: false
+}
+
 let disease = 1
-let clicks = 0
 
 
 let clickUpgrades = {
@@ -54,10 +62,17 @@ function intro() {
   document.getElementById("main").classList.add("d-none")
   document.getElementById("footer").classList.add("d-none")
   document.getElementById("header").classList.add("intro")
-  setTimeout(showGameBtn, 10000)
+  setTimeout(showGameBtn, 8000)
 }
+
 function showGameBtn() {
+
+  if (easterEgg?.adventure) {
+    document.getElementById("adventure").classList.remove("d-none")
+  }
+
   document.getElementById("game-btn").classList.remove("d-none")
+
 }
 
 function hideIntro() {
@@ -69,13 +84,13 @@ function hideIntro() {
 function saveGame() {
   window.localStorage.setItem("click-upgrades", JSON.stringify(clickUpgrades))
   window.localStorage.setItem("auto-upgrades", JSON.stringify(autoUpgrade))
-  window.localStorage.setItem("money", JSON.stringify(money))
-  window.localStorage.setItem("minutes", JSON.stringify(minutes))
-  window.localStorage.setItem("clicks", JSON.stringify(clicks))
+  window.localStorage.setItem("memory", JSON.stringify(memory))
+  window.localStorage.setItem("easter-egg", JSON.stringify(easterEgg))
 }
 
 function loadGame() {
-  let game = JSON.parse(window.localStorage.getItem("minutes"))
+  let game = JSON.parse(window.localStorage.getItem("memory"))
+  easterEgg = JSON.parse(window.localStorage.getItem("easter-egg"))
 
   if (!game) {
     intro()
@@ -83,20 +98,18 @@ function loadGame() {
     hideIntro()
     clickUpgrades = JSON.parse(window.localStorage.getItem("click-upgrades"))
     autoUpgrade = JSON.parse(window.localStorage.getItem("auto-upgrades"))
-    money = JSON.parse(window.localStorage.getItem("money"))
-    minutes = JSON.parse(window.localStorage.getItem("minutes"))
-    clicks = JSON.parse(window.localStorage.getItem("clicks"))
+    memory = JSON.parse(window.localStorage.getItem("memory"))
 
     updateDisplay()
   }
 }
 
 function smoke() {
-  money++
-  clicks++
-  minutes--
-  money += minutesModifier()
-  minutes -= minutesModifier()
+  memory.money++
+  memory.clicks++
+  memory.minutes--
+  memory.money += minutesModifier()
+  memory.minutes -= minutesModifier()
   updateDisplay()
   toggleFlameVisibility()
   saveGame()
@@ -115,8 +128,9 @@ function collectAutoUpgrades() {
   for (let key in autoUpgrade) {
     disease += autoUpgrade[key].multiplier * autoUpgrade[key].quantity
   }
-  money += disease - 1
-  minutes -= disease
+  memory.money += disease - 1
+  memory.minutes -= disease
+  memory.minutesLived++
   updateDisplay()
   death()
 }
@@ -130,8 +144,8 @@ function buyItem(item) {
   for (let key in clickUpgrades) {
     if (key == item) {
 
-      if (money >= clickUpgrades[key].price * (clickUpgrades[key].quantity + 1)) {
-        money -= clickUpgrades[key].price * (clickUpgrades[key].quantity + 1)
+      if (memory.money >= clickUpgrades[key].price * (clickUpgrades[key].quantity + 1)) {
+        memory.money -= clickUpgrades[key].price * (clickUpgrades[key].quantity + 1)
         clickUpgrades[key].quantity++
       } else {
         window.alert("insufficent resources")
@@ -140,6 +154,7 @@ function buyItem(item) {
   }
   updateDisplay()
   displayHighUpgrades()
+  saveGame()
 }
 
 function buyAutoItem(item) {
@@ -147,8 +162,8 @@ function buyAutoItem(item) {
   for (key in autoUpgrade) {
     if (key == item) {
 
-      if (money >= autoUpgrade[key].price * (autoUpgrade[key].quantity + 1)) {
-        money -= autoUpgrade[key].price * (autoUpgrade[key].quantity + 1)
+      if (memory.money >= autoUpgrade[key].price * (autoUpgrade[key].quantity + 1)) {
+        memory.money -= autoUpgrade[key].price * (autoUpgrade[key].quantity + 1)
         autoUpgrade[key].quantity++
         console.log(autoUpgrade[key])
       } else {
@@ -158,12 +173,13 @@ function buyAutoItem(item) {
   }
   updateDisplay()
   displayHighUpgrades()
+  saveGame()
 }
 
 function updateDisplay() {
-  document.getElementById("display-minutes").innerText = `${minutes.toString()}`
+  document.getElementById("display-minutes").innerText = `${memory.minutes.toString()}`
 
-  document.getElementById("display-money").innerText = `${money.toString()}`
+  document.getElementById("display-money").innerText = `${memory.money.toString()}`
 
   document.getElementById("display-vapes").innerText = `${clickUpgrades.vapes.quantity.toString()}`
 
@@ -205,18 +221,19 @@ function displayHighUpgrades() {
 }
 
 function death() {
-  if (minutes < 1) {
+  if (memory.minutes < 1) {
+    let lifeSpan = memory.minutesLived / 60 / 24 / 364
     document.getElementById("main").classList.add("d-none")
     document.getElementById("footer").classList.add("d-none")
     document.getElementById("header").innerHTML = `<div class="row"><div class="col-6"></div> <h1 class="col-6" >you died\n
-    you smoked ${clicks} times \n you should have lived 100 years but instead you cut your life short. Smoking kills.</h1></div>`
+    you smoked ${memory.clicks} times \n you should have lived 100 years but instead you lived ${lifeSpan.toFixed(2)} years. Smoking kills.</h1></div>`
     document.getElementById("header").classList.remove("d-none")
-    document.getElementById("body").style.backgroundImage = 'url(https://lh3.googleusercontent.com/proxy/ibTta_Kpg8SXzwB7DCOCWGGuWAyDHcOkSewtb55w29m1hX6TEB5771QwXXj0hTxi1xOZ5jXutv8GGhTz4tMJBxTN-LmaHwg3_Xp8WhTxkat1ByD0fNDOstaIcCNuQrTSomG2pF0dyw)';
-    localStorage.removeItem("money")
-    localStorage.removeItem("minutes")
+    document.getElementById("body").style.backgroundImage = 'url(https://lh3.googleusercontent.com/proxy/XLCMkx-L_k-Ixqpf_7uXHfSTkcJrb_5k8hpGA57Z2cfnifwLVrwqquYLC3Y1yTQYIyREvu7TkSeFFVqH6DNkmLrkOzcqJh7nXbyx60nGXNpLVxXHdP3bUBOHJF1RgJeSTw5_uMFCeQ)';
+    easterEgg.adventure = true
+    saveGame()
+    localStorage.removeItem("memory")
     localStorage.removeItem("click-upgrades")
     localStorage.removeItem("auto-upgrades")
-    localStorage.removeItem("clicks")
   }
 }
 
